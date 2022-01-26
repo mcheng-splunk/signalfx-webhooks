@@ -10,6 +10,6 @@ const {
 router.post("/ci-webhook", circleci_handleWebhook)
 router.get("/ci-getworkflows", circleci_getworkflows)
 
-router.post("/ping", ping)
+router.get("/ci-ping", ping)
 
 module.exports = router

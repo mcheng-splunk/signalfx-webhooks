@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const axios = require("axios");
 const tc = require("timezonecomplete");   
-
+const signalfx = require("./common/post_metrics");
 
 axios.defaults.headers.common['Circle-Token'] = process.env.API_KEY || 12345678;
 
@@ -100,34 +100,34 @@ const circleci_handleWebhook = async (req, res, next) => {
         payload_array.push(gauge_circleci_total_count_jobs_payload);
         payload_array.push(cumulative_circleci_total_time_jobs_payload);
     }
+    
+    // Send metrics to O11y 
+    signalfx.send_metrics(payload_array)
+    
 
-    //console.log(`array has ${payload_array.length}`);
+    // // ******************************************************
+    // // Send Json for Observabiltiy Cloud 
+    // // ******************************************************
+    // console.log("Array has ", payload_array.length , "\n")
+    // for (i = 0; i < payload_array.length; i++) {
+    //     axios
+    //     ({  
+    //         method: "post",
+    //         url: `https://ingest.${process.env.SIGNALFX_REGION}.signalfx.com/v2/datapoint`,
+    //         data: payload_array[i],
+    //         headers: {'X-SF-TOKEN': `${process.env.SIGNALFX_TOKEN}`,
+    //                     'Content-Type': 'application/json' }
 
-
-
-    // ******************************************************
-    // Send Json for Observabiltiy Cloud 
-    // ******************************************************
-    console.log("Array has ", payload_array.length , "\n")
-    for (i = 0; i < payload_array.length; i++) {
-        axios
-        ({  
-            method: "post",
-            url: `https://ingest.${process.env.SIGNALFX_REGION}.signalfx.com/v2/datapoint`,
-            data: payload_array[i],
-            headers: {'X-SF-TOKEN': `${process.env.SIGNALFX_TOKEN}`,
-                        'Content-Type': 'application/json' }
-
-        })
-        .then(res  => {
-            console.log(`signalfx statusCode: ${res.status}`)
-        // console.log(res)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-    }
-    next() 
+    //     })
+    //     .then(res  => {
+    //         console.log(`signalfx statusCode: ${res.status}`)
+    //     // console.log(res)
+    //     })
+    //     .catch(error => {
+    //         console.error(error)
+    //     })
+    // }
+    // next() 
 }
 
 const circleci_getworkflows = async (req, res) => {
@@ -141,6 +141,7 @@ const circleci_getworkflows = async (req, res) => {
 const ping = async (req, res, next) => {
     let payload = req.body
     console.log(JSON.stringify(payload))
+    res.send("pong")
     next()
   
 }
