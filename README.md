@@ -27,7 +27,7 @@ The application has been tested with ngrok provide the URL that is required by t
 
 - `npm run start` (use ngrok or deploy somewhere nice - note the deployment URL)
 
-- pass the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` into webhooks setting in CircleCI/Github. 
+- configure the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` into webhooks setting in CircleCI/Github. 
   
   - In future as more endpoints are added, please go through the routes to determine the new endpoint.
 
@@ -63,7 +63,7 @@ cumulative_circleci_total_time_jobs_payload | Total time consumed of the jobs ru
 
 ### Github
 
-| Workflow rum metrics | Description |   
+| Workflow job metrics | Description |   
 |--- | ---|
 gauge_github_total_count_pipelines_payload |Total number of workflows run
 cumulative_github_total_time_pipelines_payload | Total time consumed of workflows run
