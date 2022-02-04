@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const axios = require("axios");
 const tc = require("timezonecomplete");   
 const signalfx = require("./common/post_metrics");
+const key = require("./common/secret");
 
 axios.defaults.headers.common['Circle-Token'] = process.env.API_KEY || 12345678;
 
@@ -18,7 +19,7 @@ const circleci_handleWebhook = async (req, res, next) => {
     // Check signature to verify authenticity of webhook payload
     // Sample signature: 'circleci-signature': 'v1=281d91d308ef7a7e8bd7c7606353d5a2dd8d7c5f01143a98c1e8083e04f861ba',
     let signature = req.headers["circleci-signature"].substring(3)
-    const key = "super-secret-1234" // Same string as used in webhook setup
+    //const key = "super-secret-1234" // Same string as used in webhook setup
     let testDigest = crypto.createHmac('sha256', key).update(JSON.stringify(payload)).digest('hex')
 
     if (testDigest !== signature) {
@@ -139,6 +140,8 @@ const circleci_getworkflows = async (req, res) => {
 
 
 const ping = async (req, res, next) => {
+    console.log("WEBHOOK RECEIVED")
+    console.log(req.headers)
     let payload = req.body
     console.log(JSON.stringify(payload))
     res.send("pong")

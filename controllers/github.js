@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const axios = require("axios");
 const tc = require("timezonecomplete");   
 const signalfx = require("./common/post_metrics");
+const key = require("./common/secret");
 
 axios.defaults.headers.common['Circle-Token'] = process.env.API_KEY || 12345678;
 
@@ -23,7 +24,7 @@ const github_handleWebhook = async (req, res) => {
 
     let event_type = req.headers["x-github-event"];
     let signature = req.headers["x-hub-signature-256"].substring(7)
-    const key = "super-secret-1234" // Same string as used in webhook setup
+    //const key = "super-secret-1234" // Same string as used in webhook setup
     let testDigest = crypto.createHmac('sha256', key).update(JSON.stringify(payload)).digest('hex')
 
     if (testDigest !== signature) {
@@ -31,6 +32,7 @@ const github_handleWebhook = async (req, res) => {
         console.log(`Signature: ${signature}`)
         console.log(`Test digest: ${testDigest}`)
         res.status(403).send("Invalid signature")
+        return;
     }
 
     var payload_array = [];
