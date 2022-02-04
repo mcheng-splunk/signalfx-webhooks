@@ -28,7 +28,7 @@ The application has been tested with ngrok provide the URL that is required by t
 
 - `npm run start` (use ngrok or deploy somewhere nice - note the deployment URL)
 
-- configure the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` or `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gl-webhook` into webhooks setting in ci=CircleCI/gh=Github/gl=Gitlab 
+- configure the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` or `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gl-webhook` into webhooks setting in ci=CircleCI, gh=Github, gl=Gitlab 
   
   - In future as more endpoints are added, please go through the routes to determine the new endpoint.
 
@@ -76,3 +76,17 @@ counter_github_total_time_jobs_payload | Total time consumed of the jobs run (se
 gauge_github_total_count_jobs_payload | Total number of job run
 cumulative_github_total_time_jobs_payload | Total time consumed of the jobs run (sec)
 
+
+### Gitlab
+
+| Workflow job metrics | Description |   
+|--- | ---|
+gauge_gitlab_total_count_pipelines_payload |Total number of workflows run
+cumulative_gitlab_total_time_pipelines_payload | Total time consumed of workflows run
+
+
+| Workflow job metrics | Description | 
+| --- | --- |
+counter_gitlab_total_time_jobs_payload | Total time consumed of the jobs run (sec)
+gauge_gitlab_total_count_jobs_payload | Total number of job run
+cumulative_gitlab_total_time_jobs_payload | Total time consumed of the jobs run (sec)
