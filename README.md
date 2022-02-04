@@ -5,6 +5,7 @@
 The application is written as an interim solution to ingest metrics from some of the CICD tools. 
 - Circleci
 - Github
+- Gitlab
   
 
 ## How To Use
@@ -27,7 +28,7 @@ The application has been tested with ngrok provide the URL that is required by t
 
 - `npm run start` (use ngrok or deploy somewhere nice - note the deployment URL)
 
-- configure the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` into webhooks setting in CircleCI/Github. 
+- configure the publicly accessible url: `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gh-webhook` or `https://ngrok-generated-url/v1/cicd/ci-webhook` or `https://ngrok-generated-url/v1/cicd/gl-webhook` into webhooks setting in ci=CircleCI/gh=Github/gl=Gitlab 
   
   - In future as more endpoints are added, please go through the routes to determine the new endpoint.
 
