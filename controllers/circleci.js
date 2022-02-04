@@ -27,6 +27,7 @@ const circleci_handleWebhook = async (req, res, next) => {
         console.log(`Signature: ${signature}`)
         console.log(`Test digest: ${testDigest}`)
         res.status(403).send("Invalid signature")
+        return;
     }
 
     console.log("Webhook signature and test digest are matching.")
